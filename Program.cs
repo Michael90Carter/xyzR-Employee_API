@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using xyzR_Employee_API.Data;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<xyzR_Employee_APIContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("xyzR_Employee_APIContext") ?? throw new InvalidOperationException("Connection string 'xyzR_Employee_APIContext' not found.")));
@@ -18,6 +21,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+
+    });
+});
+
+
+   
 
 builder.Services.AddAuthentication(options =>
 {
@@ -41,8 +58,13 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 
+
+
+
 var app = builder.Build();
 
+
+app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

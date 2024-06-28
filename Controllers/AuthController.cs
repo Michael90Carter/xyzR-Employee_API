@@ -19,7 +19,8 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] UserLogin userLogin)
     {
-        // Replace with your user validation logic
+        //validation logic
+
         if (userLogin.Username == "test" && userLogin.Password == "password")
         {
             var token = GenerateJwtToken(userLogin.Username);

@@ -26,7 +26,7 @@ namespace xyzR_Employee_API.Controllers
         }
 
         // GET: api/Employees
-        [Authorize]
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee()
         {
@@ -81,8 +81,7 @@ namespace xyzR_Employee_API.Controllers
         }
 
         // POST: api/Employees
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
+        
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
